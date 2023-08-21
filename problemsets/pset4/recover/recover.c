@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
     uint8_t buffer[512];
     int jpeg_counter = 0;
     char filename[8];
-    FILE *output;
     bool saving = false;
+    FILE *output;
 
     while(fread(&buffer, sizeof(int8_t), 512, input) == 512)
     {
@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
             if (output == NULL)
             {
                 printf("Could not create %s.\n", filename);
+                fclose(input);
                 return 1;
             }
 
@@ -52,6 +53,8 @@ int main(int argc, char *argv[])
     printf("jpg count: %i\n", jpeg_counter);
 
     fclose(input);
+    fclose(output);
+
     return 0;
 }
 
